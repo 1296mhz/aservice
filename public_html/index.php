@@ -30,6 +30,7 @@
             src="js/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="js/components/bootstrap3-typeahead/bootstrap3-typeahead.js"></script>
     <script type="text/javascript" src="js/components/bootstrap-notify/bootstrap-notify.js"></script>
+    <script type="text/javascript" src='js/components/moment/moment.js'></script>
     <script type="text/javascript" src='js/fullcalendar.js'></script>
     <script type="text/javascript" src='js/scheduler.min.js'></script>
 <!--    <script type="text/javascript" src='js/calendar.js'></script>-->

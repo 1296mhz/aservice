@@ -1,1 +1,1 @@
-a:1:{i:0;a:6:{s:15:"customer_car_id";s:2:"25";s:17:"customer_car_name";s:10:"ЗАЗ 212";s:20:"customer_car_mileage";s:8:"12000000";s:16:"customer_car_vin";s:17:"YUIFNDJUFY5463782";s:22:"customer_car_gv_number";s:9:"а543ау";s:10:"created_at";s:19:"2016-04-27 19:09:18";}}
+a:1:{i:0;a:6:{s:15:"customer_car_id";s:2:"26";s:17:"customer_car_name";s:19:"АнтилопаGNU";s:20:"customer_car_mileage";s:9:"888888888";s:16:"customer_car_vin";s:17:"5555555RTEVBCKLGI";s:22:"customer_car_gv_number";s:15:"к435урлык";s:10:"created_at";s:19:"2016-04-28 01:43:39";}}

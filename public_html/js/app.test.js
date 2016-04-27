@@ -8,9 +8,7 @@ var users = getDataJson('connector.php?get=humanResources', 'json'); //полу�
 var state = getDataJson('connector.php?get=getAllStatus', 'json'); //Получение всех статусов события
 
 function watchDog() {
-
     getDataJson('connector.php?get=watch', 'json');
-
 }
 
 function initChangeBox(selBoxValue) {
@@ -20,8 +18,17 @@ function initChangeBox(selBoxValue) {
     fillSelector('select#repair_type_id', type, 'name', 'more');
 }
 
+
+function initChangeEditBox(selBoxValue) {
+    console.log("initChangeBox" + selBoxValue);
+    fillSelector('select#repair_post_id_edit', resources, 'title', selBoxValue);//Ремонтные посты
+    var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxValue);
+    fillSelector('select#repair_type_id_edit', type, 'name', 'more');
+}
+
 $(document).ready(function () {
     console.log("ready!");
+
     watchDog();
     setInterval('watchDog()', 10000);
 
@@ -33,8 +40,18 @@ $(document).ready(function () {
 
     $selectBox.off('change').on('change', function (e) {
         e.preventDefault();
-        console.log("change");
+        console.log("change_add");
         initChangeBox($selectBox.val());
+    });
+
+
+    // user_target_name
+    var $selectEditBox = $('#repair_box_id_edit');
+
+    $selectEditBox.off('change').on('change', function (e) {
+        e.preventDefault();
+        console.log("change_edit");
+        initChangeEditBox($selectEditBox.val());
     });
 
     init();
@@ -65,31 +82,30 @@ $(document).ready(function () {
     }
 
 
-  //  $('#edit_event_button').click
+    //  $('#edit_event_button').click
     function editEvent() {
-
         //Заполняем селекторы с боксами
-        fillSelector('select#repair_box_id', resources, 'title', 'more'); // ремонтные боксы
-        var selBoxVal = $('select#repair_box_id').val(); //Берем текущее значение бокса
-        fillSelector('select#repair_post_id', resources, 'title', selBoxVal);//Ремонтные посты
+        fillSelector('select#repair_box_id_edit', resources, 'title', 'more'); // ремонтные боксы
+        var selBoxVal = $('select#repair_box_id_edit').val(); //Берем текущее значение бокса
+        fillSelector('select#repair_post_id_edit', resources, 'title', selBoxVal);//Ремонтные посты
         var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxVal);   //Загружаем типы работ
-        fillSelector('select#repair_type_id', type, 'name', 'more'); //заполняем Типы работ
-        fillSelector('select#user_target_name', users, 'name', 'more'); //Заполняем механиков
+        fillSelector('select#repair_type_id_edit', type, 'name', 'more'); //заполняем Типы работ
+        fillSelector('select#user_target_name_edit', users, 'name', 'more'); //Заполняем механиков
         searchAutocomplete(searchElements);
-        fillSelector('select#state', state, 'name', 'more');//Заполняем статус события
+        fillSelector('select#state_edit', state, 'name', 'more');//Заполняем статус события
         $('#editEvent').modal('show');
     };
 
     $('#edit_event_button').click(function () {
         //Заполняем селекторы с боксами
-        fillSelector('select#repair_box_id', resources, 'title', 'more'); // ремонтные боксы
-        var selBoxVal = $('select#repair_box_id').val(); //Берем текущее значение бокса
-        fillSelector('select#repair_post_id', resources, 'title', selBoxVal);//Ремонтные посты
+        fillSelector('select#repair_box_id_edit', resources, 'title', 'more'); // ремонтные боксы
+        var selBoxVal = $('select#repair_box_id_edit').val(); //Берем текущее значение бокса
+        fillSelector('select#repair_post_id_edit', resources, 'title', selBoxVal);//Ремонтные посты
         var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxVal);   //Загружаем типы работ
-        fillSelector('select#repair_type_id', type, 'name', 'more'); //заполняем Типы работ
-        fillSelector('select#user_target_name', users, 'name', 'more'); //Заполняем механиков
+        fillSelector('select#repair_type_id_edit', type, 'name', 'more'); //заполняем Типы работ
+        fillSelector('select#user_target_name_edit', users, 'name', 'more'); //Заполняем механиков
         searchAutocomplete(searchElements);
-        fillSelector('select#state', state, 'name', 'more');//Заполняем статус события
+        fillSelector('select#state_edit', state, 'name', 'more');//Заполняем статус события
         $('#editEvent').modal('show');
     });
 
@@ -211,16 +227,16 @@ $(document).ready(function () {
             },
 
             eventMouseover: function (event, jsEvent) {
-                var tstart = new Date(event.start);
-                var start = tstart.toLocaleTimeString();
+                var tstart = moment(event.start).format('HH:mm');
 
-                var tend = new Date(event.end);
-                var end = tend.toLocaleTimeString();
+
+                var tend = moment(event.end).format('HH:mm');
+
 
                 var tooltip = '<div class="tooltipevent panel panel-primary" style="position:absolute;z-index:10001;">' +
                     '<div class="panel-body">Событие #' + event.id + ' ' + event.event_name + '' +
                     '</div><div class="panel-footer">' +
-                    '<a>Время: </a>' + start + ' до ' + end + '<br>' +
+                    '<a>Время: </a>' + tstart + ' до ' + tend + '<br>' +
                     '<a>Заказчик: </a>' + event.customer_name + '<br>' +
                     '<a>Исполнитель: </a>' + event.mechanic + '<br>' +
                     '<a>Название авто: </a>' + event.customer_car_name + '<br>' +
