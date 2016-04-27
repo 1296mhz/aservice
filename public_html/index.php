@@ -99,6 +99,12 @@
                 <?php echo Forms::load(EDIT_EVENT_FORM) ?>
         </div>
     </div>
-
+        <div class="navbar-fixed-bottom row-fluid navbar-inverse">
+            <div class="navbar-inner">
+                <div class="container">
+                    <span class="label label-info text-left">АнтилопаGNU</span>
+                    </div>
+                </div>
+            </div>
 </body>
 </html>
