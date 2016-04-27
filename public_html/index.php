@@ -32,7 +32,7 @@
     <script type="text/javascript" src="js/components/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src='js/fullcalendar.js'></script>
     <script type="text/javascript" src='js/scheduler.min.js'></script>
-    <script type="text/javascript" src='js/calendar.js'></script>
+<!--    <script type="text/javascript" src='js/calendar.js'></script>-->
     <script type="text/javascript" src='js/leftmenu.js'></script>
     <script type="text/javascript" src='js/functions.js'></script>
     <script type="text/javascript" src='js/validate.js'></script>
@@ -69,6 +69,7 @@
             </ul>
             <div class="nav navbar-nav navbar-right">
                 <button class="btn btn-success navbar-btn" id="add_event_button">Добавить событие</button>
+                <button class="btn btn-success navbar-btn" id="edit_event_button">Редактировать событие</button>
                 <button class="btn btn-success navbar-btn" id="reload">Обновить</button>
                 <button class="btn btn-danger navbar-btn btn-exit">Выйти</button>
             </div>
