@@ -20,7 +20,7 @@ function initChangeBox(selBoxValue) {
 
 
 function initChangeEditBox(selBoxValue) {
-    console.log("initChangeBox" + selBoxValue);
+    console.log("initChangeEditBox" + selBoxValue);
     fillSelector('select#repair_post_id_edit', resources, 'title', selBoxValue);//Ремонтные посты
     var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxValue);
     fillSelector('select#repair_type_id_edit', type, 'name', 'more');
@@ -31,12 +31,15 @@ $(document).ready(function () {
 
     watchDog();
     setInterval('watchDog()', 10000);
+    var startdatetime = $('#startdatetime').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
+    var enddatetime = $('#enddatetime').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
 
+    var startdatetime_edit = $('#startdatetime_edit').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
+    var enddatetime_edit = $('#enddatetime_edit').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
     // user_target_name
     var $selectBox = $('#repair_box_id');
 
-    startdatetime = $('#startdatetime').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
-    enddatetime = $('#enddatetime').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
+   
 
     $selectBox.off('change').on('change', function (e) {
         e.preventDefault();
@@ -47,7 +50,7 @@ $(document).ready(function () {
 
     // user_target_name
     var $selectEditBox = $('#repair_box_id_edit');
-
+   
     $selectEditBox.off('change').on('change', function (e) {
         e.preventDefault();
         console.log("change_edit");
@@ -83,17 +86,47 @@ $(document).ready(function () {
 
 
     //  $('#edit_event_button').click
-    function editEvent() {
+    function editEvent(edit_event) {
         //Заполняем селекторы с боксами
+        $('#editEventLabel').text("Редактировать событие # " + edit_event.id);
         fillSelector('select#repair_box_id_edit', resources, 'title', 'more'); // ремонтные боксы
+        //console.log("Машина клиента: " + edit_event.customer_car_id);
+        $('select#repair_box_id_edit').val(edit_event.repair_box_id);
         var selBoxVal = $('select#repair_box_id_edit').val(); //Берем текущее значение бокса
+
         fillSelector('select#repair_post_id_edit', resources, 'title', selBoxVal);//Ремонтные посты
+
+        $('select#repair_post_id_edit').val(edit_event.repair_post_id);
+
         var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxVal);   //Загружаем типы работ
         fillSelector('select#repair_type_id_edit', type, 'name', 'more'); //заполняем Типы работ
+
+        $('select#repair_type_id_edit').val(edit_event.repair_type_id);
+
         fillSelector('select#user_target_name_edit', users, 'name', 'more'); //Заполняем механиков
-        searchAutocomplete(searchElements);
+        $('select#user_target_name_edit').val(edit_event.user_target_id);
+
+        $('input#customer_name_edit').val(edit_event.customer_name);
+        $('input#customer_phone_edit').val(edit_event.customer_phone);
+
+        $('input#customer_car_vin_edit').val(edit_event.customer_car_vin);
+        $('input#customer_car_name_edit').val(edit_event.customer_car_name);
+
+        $('input#customer_car_gv_number_edit').val(edit_event.customer_car_gv_number);
+        $('input#customer_car_mileage_edit').val(edit_event.customer_car_mileage);
+        
+
+        $('input#startdatetime_edit').val(edit_event.startdatetime);
+        $('input#enddatetime_edit').val(edit_event.enddatetime);
         fillSelector('select#state_edit', state, 'name', 'more');//Заполняем статус события
+        $('select#state_edit').val(edit_event.state);
+        searchAutocomplete(searchElements);
+
         $('#editEvent').modal('show');
+        //Фио клиента
+
+
+        
     };
 
     $('#edit_event_button').click(function () {
@@ -150,12 +183,12 @@ $(document).ready(function () {
             if (val == false) {
                 $('.' + i).removeClass('has-success');
                 $('.' + i).addClass('has-error');
-                console.log(i + " " + val);
+                //console.log(i + " " + val);
 
             } else {
                 $('.' + i).removeClass('has-error');
                 $('.' + i).addClass('has-success');
-                console.log(i + " " + val);
+                //console.log(i + " " + val);
             }
 
             if (i == 'error_datetime' && val == 'end_times_longer') {
@@ -166,9 +199,49 @@ $(document).ready(function () {
             }
 
         });
-        console.log('Првиет');
+
         $('#calendar').fullCalendar('refetchEvents');
     });
+
+    $('#sendEditBtn').off('click').on('click', function (e) {
+
+        e.preventDefault();
+
+        var formData = $('#editEventForm').serializeArray();
+
+        // check form
+        var result = {};
+        formData.forEach(function (v) {
+            result[v.name] = v.value;
+        });
+
+        var formAnswer = getDataJson('connector.php?get=addEvent', result);
+
+        jQuery.each(formAnswer, function (i, val) {
+
+            if (val == false) {
+                $('.' + i).removeClass('has-success');
+                $('.' + i).addClass('has-error');
+                //console.log(i + " " + val);
+
+            } else {
+                $('.' + i).removeClass('has-error');
+                $('.' + i).addClass('has-success');
+                //console.log(i + " " + val);
+            }
+
+            if (i == 'error_datetime' && val == 'end_times_longer') {
+                alert('Начальное время больше или равно конечному!');
+            }
+            if (i == 'error_datetime' && val == 'internal_error_wrong_format') {
+                alert('Внутренняя ошибка, формат времени!');
+            }
+
+        });
+
+        $('#calendar').fullCalendar('refetchEvents');
+    });
+
 
 
     $(function () { // document ready
@@ -227,11 +300,10 @@ $(document).ready(function () {
             },
 
             eventMouseover: function (event, jsEvent) {
+
                 var tstart = moment(event.start).format('HH:mm');
 
-
                 var tend = moment(event.end).format('HH:mm');
-
 
                 var tooltip = '<div class="tooltipevent panel panel-primary" style="position:absolute;z-index:10001;">' +
                     '<div class="panel-body">Событие #' + event.id + ' ' + event.event_name + '' +
@@ -264,11 +336,12 @@ $(document).ready(function () {
 
             eventClick: function (event) {
                 console.log(event.id);
-                editEvent();
+                var edit_event = getDataJson('connector.php?get=getEventById', 'event_id=' + event.id);
+
+                _.each(edit_event, function (data) {
+                    editEvent(data);
+                });
             }
         });
-
     });
-
-
 });
