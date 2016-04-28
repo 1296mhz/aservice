@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="editEventLabel">Редактировать событие</h4>
+                <h4 class="modal-title" id="editEventLabel"></h4>
             </div>
 
             <div class="modal-body">
@@ -68,7 +68,7 @@
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                <input type="text" class="form-control" name="customer_phone" id="customer_phone_edit"
+                                <input type="text" class="form-control" name="customer_phone_edit" id="customer_phone_edit"
                                        data-provide="typeahead" autocomplete="off" pattern="[0-9]{5,12}" required title="Разрешены только цифры">
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
@@ -122,12 +122,12 @@
 
                     <!-- Начало в-->
                     <div class="form-group startdatetime">
-                        <label for="startdatetime" class="col-sm-4 control-label">Начало в:</label>
+                        <label for="startdatetime_edit" class="col-sm-4 control-label">Начало в:</label>
 
                         <div class='col-sm-8'>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input type='text' class="form-control" id="startdatetime" name="startdatetime"/>
+                                <input type='text' class="form-control" id="startdatetime_edit" name="startdatetime_edit"/>
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
@@ -135,11 +135,11 @@
 
                     <!-- Окончание в-->
                     <div class="form-group enddatetime">
-                        <label for="enddatetime" class="col-sm-4 control-label">Завершение в:</label>
+                        <label for="enddatetime_edit" class="col-sm-4 control-label">Завершение в:</label>
                         <div class='col-sm-8'>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input type='text' class="form-control" id="enddatetime" name="enddatetime"/>
+                                <input type='text' class="form-control" id="enddatetime_edit" name="enddatetime_edit"/>
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
@@ -154,7 +154,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" name="closeModalEventBtn" id="closeModalEventBtn" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-danger" name="deleteModalEventBtn" id="deleteModalEventBtn" data-dismiss="modal">Удалить</button>
+                <button type="button" class="btn btn-default" name="closeModalEventBtn" id="closeModaEventBtn" data-dismiss="modal">Закрыть</button>
                 <button type="submit" name="sendBtn" id="sendEditBtn" class="btn btn-primary">Сохранить</button>
             </div>
         </div>

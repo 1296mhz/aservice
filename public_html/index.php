@@ -20,7 +20,6 @@
     <link type="text/css" href="css/jquery-ui-1.9.2.custom.css" rel="stylesheet">
     <link rel="stylesheet"
           href="js/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
-<!--    <script   src="https://code.jquery.com/jquery-1.10.2.js"   integrity="sha256-it5nQKHTz+34HijZJQkpNBIHsjpV8b6QzMJs9tmOBSo="   crossorigin="anonymous"></script>-->
     <script type="text/javascript" src="js/jquery-1.12.3.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
     <script type="text/javascript" src="js/components/bootstrap/dist/js/bootstrap.js"></script>
@@ -33,7 +32,6 @@
     <script type="text/javascript" src='js/components/moment/moment.js'></script>
     <script type="text/javascript" src='js/fullcalendar.js'></script>
     <script type="text/javascript" src='js/scheduler.min.js'></script>
-<!--    <script type="text/javascript" src='js/calendar.js'></script>-->
     <script type="text/javascript" src='js/leftmenu.js'></script>
     <script type="text/javascript" src='js/functions.js'></script>
     <script type="text/javascript" src='js/validate.js'></script>

@@ -154,8 +154,8 @@ class Controller
 
                 //Авто
                 $customer_car = Get::getCustomerCarById($row['customer_car_id']);
-                file_put_contents('test/customerCar.txt', serialize($customer_car));
-                foreach ($customer_car as $value){
+
+                foreach ($customer_car as $value) {
                     $customer_car_vin = $value['customer_car_vin'];
                     $customer_car_name = $value['customer_car_name'];
                     $customer_car_mileage = $value['customer_car_mileage'];
@@ -166,7 +166,7 @@ class Controller
                 $result[$index]['customer_car_mileage'] = $customer_car_mileage;
                 $result[$index]['customer_car_gv_number'] = $customer_car_gv_number;
 
-              //  $result[$index]['test'] = $row['customer_car_id'];
+                //  $result[$index]['test'] = $row['customer_car_id'];
 
                 $result[$index]['title'] = "Заказ номер: " . $row['id'];
                 $result[$index]['event_name'] = $event_name;
@@ -287,7 +287,7 @@ class Controller
     }
 
 
-    //Хуинская обработка формы
+    //Хуинская обработка формы добавления события
     public static function addHandlerEvent($user_id, $data)
     {
 
@@ -330,6 +330,190 @@ class Controller
             return $data;
         }
         return $data;
+    }
+
+    //Хуинская обработка формы обновления события
+    public static function updateHandlerEvent($user_id, $data)
+    {
+
+        // addEvent::insertEvent($request);
+        $requestToCheck = $data;
+        $requestToCheck['user_owner_id'] = $user_id;
+
+        $data = Validate::checking($data);
+        if ($data['customer_name'] &&
+            $data['customer_phone'] &&
+            $data['customer_car_vin'] &&
+            $data['customer_car_gv_number'] &&
+            $data['customer_car_name'] &&
+            $data['customer_car_mileage'] &&
+            $data['repair_box_id'] &&
+            $data['repair_post_id'] &&
+            $data['repair_type_id'] &&
+            $data['user_target_name'] &&
+            $data['state'] &&
+            $data['startdatetime'] &&
+            $data['enddatetime']
+        ) {
+
+            $customer_name_id = Check::switcherCheck(Check::checkCustomer($requestToCheck));
+            $customerCar_name_id = Check::switcherCheck(Check::checkCustomerCar($requestToCheck));
+            $dataSave[] = [];
+            $dataSave['repair_box_id'] = $requestToCheck['repair_box_id'];
+            $dataSave['repair_post_id'] = $requestToCheck['repair_post_id'];
+            $dataSave['repair_type_id'] = $requestToCheck['repair_type_id'];
+            $dataSave['user_target_id'] = $requestToCheck['user_target_name'];
+            $dataSave['user_owner_id'] = $requestToCheck['user_owner_id'];
+            $dataSave['state'] = $requestToCheck['state'];
+            $dataSave['startdatetime'] = $requestToCheck['startdatetime'];
+            $dataSave['enddatetime'] = $requestToCheck['enddatetime'];
+            $dataSave['customer_id'] = $customer_name_id;
+            $dataSave['customer_car_id'] = $customerCar_name_id;
+
+
+            Update::updateEvent($dataSave);
+            return $data;
+        }
+        return $data;
+    }
+
+    public static function getEventById($user_id, $role, $event_id)
+    {
+
+        switch ($role) {
+            case 'admin':
+                $output[] = [];
+                $result = Get::getMechanicWorkDataById($user_id, $role, $event_id);
+                foreach ($result as $res_value) {
+                    $id = $res_value['id'];
+                    $repair_post_id = $res_value['repair_post_id'];
+                    $repair_type_id = $res_value['repair_type_id'];
+                    $user_owner_id = $res_value['user_owner_id'];
+                    $user_target_id = $res_value['user_target_id'];
+                    $state = $res_value['state'];
+                    $customer_id = $res_value['customer_id'];
+                    $customer_car_id = $res_value['customer_car_id'];
+                    $startdatetime = $res_value['startdatetime'];
+                    $enddatetime = $res_value['enddatetime'];
+                    $created_at = $res_value['created_at'];
+                    $updated_at = $res_value['updated_at'];
+                }
+                $box_id = Get::getRepairBoxByPosts($repair_post_id);
+                foreach ($box_id as $value) {
+                    $output[0]['repair_box_id'] = 'b' . $value['box_name_id'];
+                    $box_name_id = $value['box_name_id'];
+                }
+
+                $customer_info = Get::getCustomerNameById($customer_id);
+                foreach ($customer_info as $value) {
+                    $customer_id = $value['customer_id'];
+                    $customer_name = $value['customer_name'];
+                    $customer_phone = $value['customer_phone'];
+                }
+
+                $customer_car_info = Get::getCustomerCarById($customer_car_id);
+                foreach ($customer_car_info as $value) {
+                    $customer_car_id = $value['customer_car_id'];
+                    $customer_car_name = $value['customer_car_name'];
+                    $customer_car_mileage = $value['customer_car_mileage'];
+                    $customer_car_vin = $value['customer_car_vin'];
+                    $customer_car_gv_number = $value['customer_car_gv_number'];
+
+                }
+
+                $output[0]['id'] = $id;
+                $output[0]['repair_post_id'] = 'b' . $box_name_id . $repair_post_id;
+                $output[0]['repair_type_id'] = $repair_type_id;
+                $output[0]['user_owner_id'] = $user_owner_id;
+                $output[0]['user_target_id'] = $user_target_id;
+                $output[0]['state'] = $state;
+                $output[0]['customer_name'] = $customer_name;
+                $output[0]['customer_phone'] = $customer_phone;
+                $output[0]['customer_car_id'] = $customer_car_id;
+                $output[0]['startdatetime'] = $startdatetime;
+                $output[0]['enddatetime'] = $enddatetime;
+                $output[0]['event_created_at'] = $created_at;
+                $output[0]['event_created_at'] = $customer_car_id;
+                $output[0]['customer_car_name'] = $customer_car_name;
+                $output[0]['customer_car_vin'] = $customer_car_vin;
+                $output[0]['customer_car_mileage'] = $customer_car_mileage;
+                $output[0]['customer_car_gv_number'] = $customer_car_gv_number;
+
+                return $output;
+            case 'manager':
+                $output[] = [];
+                $result = Get::getMechanicWorkDataById($user_id, $role, $event_id);
+                foreach ($result as $res_value) {
+                    $id = $res_value['id'];
+                    $repair_post_id = $res_value['repair_post_id'];
+                    $repair_type_id = $res_value['repair_type_id'];
+                    $user_owner_id = $res_value['user_owner_id'];
+                    $user_target_id = $res_value['user_target_id'];
+                    $state = $res_value['state'];
+                    $customer_id = $res_value['customer_id'];
+                    $customer_car_id = $res_value['customer_car_id'];
+                    $startdatetime = $res_value['startdatetime'];
+                    $enddatetime = $res_value['enddatetime'];
+                    $created_at = $res_value['created_at'];
+                    $updated_at = $res_value['updated_at'];
+                }
+                $box_id = Get::getRepairBoxByPosts($repair_post_id);
+                foreach ($box_id as $value) {
+                    $output[0]['repair_box_id'] = $value['box_name_id'];
+                }
+
+                $output[0]['id'] = $id;
+                $output[0]['repair_post_id'] = $repair_post_id;
+                $output[0]['repair_type_id'] = $repair_type_id;
+                $output[0]['user_owner_id'] = $user_owner_id;
+                $output[0]['user_target_id'] = $user_target_id;
+                $output[0]['state'] = $state;
+                $output[0]['customer_id'] = $customer_id;
+                $output[0]['customer_car_id'] = $customer_car_id;
+                $output[0]['startdatetime'] = $startdatetime;
+                $output[0]['enddatetime'] = $enddatetime;
+                $output[0]['created_at'] = $created_at;
+                $output[0]['updated_at'] = $updated_at;
+
+                return $output;
+            case 'mechanic':
+                $output[] = [];
+                $result = Get::getMechanicWorkDataById($user_id, $role, $event_id);
+                foreach ($result as $res_value) {
+                    $id = $res_value['id'];
+                    $repair_post_id = $res_value['repair_post_id'];
+                    $repair_type_id = $res_value['repair_type_id'];
+                    $user_owner_id = $res_value['user_owner_id'];
+                    $user_target_id = $res_value['user_target_id'];
+                    $state = $res_value['state'];
+                    $customer_id = $res_value['customer_id'];
+                    $customer_car_id = $res_value['customer_car_id'];
+                    $startdatetime = $res_value['startdatetime'];
+                    $enddatetime = $res_value['enddatetime'];
+                    $created_at = $res_value['created_at'];
+                    $updated_at = $res_value['updated_at'];
+                }
+                $box_id = Get::getRepairBoxByPosts($repair_post_id);
+                foreach ($box_id as $value) {
+                    $output[0]['repair_box_id'] = $value['box_name_id'];
+                }
+
+                $output[0]['id'] = $id;
+                $output[0]['repair_post_id'] = $repair_post_id;
+                $output[0]['repair_type_id'] = $repair_type_id;
+                $output[0]['user_owner_id'] = $user_owner_id;
+                $output[0]['user_target_id'] = $user_target_id;
+                $output[0]['state'] = $state;
+                $output[0]['customer_id'] = $customer_id;
+                $output[0]['customer_car_id'] = $customer_car_id;
+                $output[0]['startdatetime'] = $startdatetime;
+                $output[0]['enddatetime'] = $enddatetime;
+                $output[0]['created_at'] = $created_at;
+                $output[0]['updated_at'] = $updated_at;
+
+                return $output;
+        }
+
     }
 
     public static function getUserName($login)

@@ -223,6 +223,82 @@ class Get
         return $output;
     }
 
+    public static function getMechanicWorkDataById($user_id, $role, $event_id )
+    {
+
+        $mysqlConn = Mysql::Connection();
+       
+        switch ($role) {
+            case 'admin':
+                $res = $mysqlConn->query("SELECT * FROM `mechanic_work` WHERE `id`=$event_id");
+                $output[] = [];
+                $index = 0;
+                while ($row = $res->fetch_assoc()) {
+                    $output[$index]['id'] = $row['id'];
+                    $output[$index]['repair_post_id'] = $row['repair_post_id'];
+                    $output[$index]['repair_type_id'] = $row['repair_type_id'];
+                    $output[$index]['user_owner_id'] = $row['user_owner_id'];
+                    $output[$index]['user_target_id'] = $row['user_target_id'];
+                    $output[$index]['state'] = $row['state'];
+                    $output[$index]['customer_id'] = $row['customer_id'];
+                    $output[$index]['customer_car_id'] = $row['customer_car_id'];
+                    $output[$index]['startdatetime'] = $row['startdatetime'];
+                    $output[$index]['enddatetime'] = $row['enddatetime'];
+                    $output[$index]['created_at'] = $row['created_at'];
+                    $output[$index]['updated_at'] = $row['updated_at'];
+                    $index++;
+                }
+
+                return $output;
+                
+            case 'manager':
+                $res = $mysqlConn->query("SELECT * FROM `mechanic_work` WHERE `id`=$event_id");
+                $output[] = [];
+                $index = 0;
+                while ($row = $res->fetch_assoc()) {
+                    $output[$index]['id'] = $row['id'];
+                    $output[$index]['repair_post_id'] = $row['repair_post_id'];
+                    $output[$index]['repair_type_id'] = $row['repair_type_id'];
+                    $output[$index]['user_owner_id'] = $row['user_owner_id'];
+                    $output[$index]['user_target_id'] = $row['user_target_id'];
+                    $output[$index]['state'] = $row['state'];
+                    $output[$index]['customer_id'] = $row['customer_id'];
+                    $output[$index]['customer_car_id'] = $row['customer_car_id'];
+                    $output[$index]['startdatetime'] = $row['startdatetime'];
+                    $output[$index]['enddatetime'] = $row['enddatetime'];
+                    $output[$index]['created_at'] = $row['created_at'];
+                    $output[$index]['updated_at'] = $row['updated_at'];
+                    $index++;
+                }
+                file_put_contents('test/eventIDmanager.txt', serialize($output));
+                return $output;
+            case 'mechanic':
+                $res = $mysqlConn->query("SELECT * FROM `mechanic_work` WHERE `user_target_id`=$user_id AND `id`=$event_id");
+                $output[] = [];
+                $index = 0;
+                while ($row = $res->fetch_assoc()) {
+                    $output[$index]['id'] = $row['id'];
+                    $output[$index]['repair_post_id'] = $row['repair_post_id'];
+                    $output[$index]['repair_type_id'] = $row['repair_type_id'];
+                    $output[$index]['user_owner_id'] = $row['user_owner_id'];
+                    $output[$index]['user_target_id'] = $row['user_target_id'];
+                    $output[$index]['state'] = $row['state'];
+                    $output[$index]['customer_id'] = $row['customer_id'];
+                    $output[$index]['customer_car_id'] = $row['customer_car_id'];
+                    $output[$index]['startdatetime'] = $row['startdatetime'];
+                    $output[$index]['enddatetime'] = $row['enddatetime'];
+                    $output[$index]['created_at'] = $row['created_at'];
+                    $output[$index]['updated_at'] = $row['updated_at'];
+                    $index++;
+                }
+                file_put_contents('test/eventIDmechanic.txt', serialize($output));
+                return $output;
+
+        }
+
+    }
+
+
     //Получаем боксы
     public static function getBoxResources()
     {
@@ -279,6 +355,21 @@ class Get
         return $output;
     }
 
+    //Получить ID Бокса по ID Посту
+    public static function getRepairBoxByPosts($id_post)
+    {
+
+        $mysqlConn = Mysql::Connection();
+        $res = $mysqlConn->query("SELECT `box_name_id` FROM `repair_post` WHERE `id`=$id_post");
+        $output[] = [];
+        $index = 0;
+        while ($row = $res->fetch_assoc()) {
+            $output[$index]['box_name_id'] = $row['box_name_id'];
+            $index++;
+        }
+        return $output;
+    }
+    
     //Получаем посты
     public static function getPostResources()
     {

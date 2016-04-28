@@ -47,7 +47,7 @@ class Update
         $startdatetime = $data['startdatetime'];
         $enddatetime = $data['enddatetime'];
         $updated_at = $data['updated_at'];
-        file_put_contents('test/updateEvent.txt', serialize($data));
+        
         if (!$mysqlConn->query("UPDATE `mechanic_work` 
                                 SET repair_post_id = '$repair_post_id', 
                                 repair_type_id = '$repair_type_id', 

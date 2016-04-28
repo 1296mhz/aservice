@@ -35,6 +35,9 @@ if (isset($_GET['get'])) {
         case 'addEvent':
             Controller::sendJson(Controller::addHandlerEvent($_SESSION['user_id'],$_POST), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             break;
+        case 'getEventById':
+            Controller::sendJson(Controller::getEventById($_SESSION['user_id'], $_SESSION['role'], $_POST['event_id']), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+            break;
         case 'updateEvent':
             Controller::sendJson(Controller::updateHandlerEvent($_SESSION['user_id'],$_POST), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             break;
