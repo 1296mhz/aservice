@@ -1,1 +1,0 @@
-a:11:{i:0;a:0:{}s:13:"repair_box_id";s:2:"b1";s:14:"repair_post_id";s:3:"b11";s:14:"repair_type_id";s:1:"1";s:14:"user_target_id";s:1:"1";s:13:"user_owner_id";s:1:"1";s:5:"state";s:1:"1";s:13:"startdatetime";s:16:"2016-04-29 13:00";s:11:"enddatetime";s:16:"2016-04-29 14:00";s:11:"customer_id";s:2:"70";s:15:"customer_car_id";s:2:"30";}

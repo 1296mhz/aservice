@@ -10,50 +10,50 @@
                 <form class="form-horizontal" id="editEventForm">
 
                     <!-- Ремонтный бокс-->
-                    <div class="form-group repair_box_id_edit">
-                        <label for="repair_box_id_edit" class="col-sm-4 control-label">Ремонтный бокс</label>
+                    <div class="form-group repair_box_id">
+                        <label for="repair_box_id" class="col-sm-4 control-label">Ремонтный бокс</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="repair_box_id_edit" name="repair_box_id_edit"></select>
+                            <select class="form-control" id="repair_box_id" name="repair_box_id"></select>
                         </div>
                     </div>
 
                     <!-- Ремонтный пост-->
-                    <div class="form-group repair_post_id_edit">
-                        <label for="repair_post_id_edit" class="col-sm-4 control-label">Ремонтный пост</label>
+                    <div class="form-group repair_post_id">
+                        <label for="repair_post_id" class="col-sm-4 control-label">Ремонтный пост</label>
 
                         <div class="col-sm-8">
-                            <select class="form-control" id="repair_post_id_edit" name="repair_post_id_edit"></select>
+                            <select class="form-control" id="repair_post_id" name="repair_post_id"></select>
                         </div>
                     </div>
 
                     <!-- Вид работы -->
                     <div class="form-group repair_type_id">
-                        <label for="repair_type_id_edit" class="col-sm-4 control-label">Вид работы</label>
+                        <label for="repair_type_id" class="col-sm-4 control-label">Вид работы</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="repair_type_id_edit" name="repair_type_id_edit"></select>
+                            <select class="form-control" id="repair_type_id" name="repair_type_id"></select>
                         </div>
                     </div>
 
                     <!-- Мастер (исполнитель) -->
-                    <div class="form-group user_target_name_edit">
-                        <label for="user_target_name_edit" class="col-sm-4 control-label">Мастер (исполнитель)</label>
+                    <div class="form-group user_target_name">
+                        <label for="user_target_name" class="col-sm-4 control-label">Мастер (исполнитель)</label>
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 
-                                <select class="form-control" id="user_target_name_edit" name="user_target_name_edit"></select>
+                                <select class="form-control" id="user_target_name" name="user_target_name"></select>
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
                     <!-- Заказчик: ФИО -->
-                    <div class="form-group customer_name_edit">
-                        <label for="customer_name_edit" class="col-sm-4 control-label">Заказчик: ФИО</label>
+                    <div class="form-group customer_name">
+                        <label for="customer_name" class="col-sm-4 control-label">Заказчик: ФИО</label>
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" class="form-control" name="customer_name_edit" id="customer_name_edit"
+                                <input type="text" class="form-control" name="customer_name" id="customer_name"
                                        data-provide="typeahead" pattern="[а-яА-ЯёЁ]{2,64}" required title="Разрешены только буквы кириллицы">
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
@@ -64,11 +64,11 @@
                     <!-- Заказчик: телефон -->
 
                     <div class="form-group customer_phone">
-                        <label for="customer_phone_edit" class="col-sm-4 control-label">Заказчик: телефон</label>
+                        <label for="customer_phone" class="col-sm-4 control-label">Заказчик: телефон</label>
                         <div class="col-sm-8">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
-                                <input type="text" class="form-control" name="customer_phone_edit" id="customer_phone_edit"
+                                <input type="text" class="form-control" name="customer_phone" id="customer_phone"
                                        data-provide="typeahead" autocomplete="off" pattern="[0-9]{5,12}" required title="Разрешены только цифры">
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
@@ -78,56 +78,56 @@
 
 
                     <!-- Заказчик: VIN авто -->
-                    <div class="form-group customer_car_vin_edit">
-                        <label for="customer_car_vin_edit" class="col-sm-4 control-label">Заказчик: VIN авто</label>
+                    <div class="form-group customer_car_vin">
+                        <label for="customer_car_vin" class="col-sm-4 control-label">Заказчик: VIN авто</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="customer_car_vin_edit" id="customer_car_vin_edit"
+                            <input type="text" class="form-control" name="customer_car_vin" id="customer_car_vin"
                                    data-provide="typeahead" autocomplete="off">
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
                     <!-- Заказчик: Гос. номер авто -->
-                    <div class="form-group customer_car_gv_number_edit">
-                        <label for="customer_car_gv_number_edit" class="col-sm-4 control-label">Заказчик: Гос. номер
+                    <div class="form-group customer_car_gv_number">
+                        <label for="customer_car_gv_number" class="col-sm-4 control-label">Заказчик: Гос. номер
                             авто</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="customer_car_gv_number_edit"
-                                   id="customer_car_gv_number_edit" data-provide="typeahead" autocomplete="off">
+                            <input type="text" class="form-control" name="customer_car_gv_number"
+                                   id="customer_car_gv_number" data-provide="typeahead" autocomplete="off">
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
                     <!-- Заказчик: Модель авто -->
-                    <div class="form-group customer_car_name_edit">
-                        <label for="customer_car_name_edit" class="col-sm-4 control-label">Заказчик: Модель авто</label>
+                    <div class="form-group customer_car_name">
+                        <label for="customer_car_name" class="col-sm-4 control-label">Заказчик: Модель авто</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="customer_car_name_edit" id="customer_car_name_edit"
+                            <input type="text" class="form-control" name="customer_car_name" id="customer_car_name"
                                    data-provide="typeahead" autocomplete="off">
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
                     <!-- Заказчик: Пробег авто -->
-                    <div class="form-group customer_car_mileage_edit">
-                        <label for="customer_car_mileage_edit" class="col-sm-4 control-label">Заказчик: Пробег авто</label>
+                    <div class="form-group customer_car_mileage">
+                        <label for="customer_car_mileage" class="col-sm-4 control-label">Заказчик: Пробег авто</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="customer_car_mileage_edit"
-                                   id="customer_car_mileage_edit" data-provide="typeahead" autocomplete="off">
+                            <input type="text" class="form-control" name="customer_car_mileage"
+                                   id="customer_car_mileage" data-provide="typeahead" autocomplete="off">
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
                     <!-- Начало в-->
                     <div class="form-group startdatetime">
-                        <label for="startdatetime_edit" class="col-sm-4 control-label">Начало в:</label>
+                        <label for="startdatetime" class="col-sm-4 control-label">Начало в:</label>
 
                         <div class='col-sm-8'>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input type='text' class="form-control" id="startdatetime_edit" name="startdatetime_edit"/>
+                                <input type='text' class="form-control" id="startdatetime" name="startdatetime"/>
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
@@ -135,20 +135,20 @@
 
                     <!-- Окончание в-->
                     <div class="form-group enddatetime">
-                        <label for="enddatetime_edit" class="col-sm-4 control-label">Завершение в:</label>
+                        <label for="enddatetime" class="col-sm-4 control-label">Завершение в:</label>
                         <div class='col-sm-8'>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input type='text' class="form-control" id="enddatetime_edit" name="enddatetime_edit"/>
+                                <input type='text' class="form-control" id="enddatetime" name="enddatetime"/>
                             </div>
                             <span class="glyphicon form-control-feedback"></span>
                         </div>
                     </div>
 
                     <div class="form-group state_edit">
-                        <label for="state_edit" class="col-sm-4 control-label">Статус</label>
+                        <label for="state" class="col-sm-4 control-label">Статус</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="state_edit" name="state_edit"></select>
+                            <select class="form-control" id="state" name="state"></select>
                         </div>
                     </div>
                 </form>

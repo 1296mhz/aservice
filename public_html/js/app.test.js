@@ -19,40 +19,21 @@ function initChangeBox(selBoxValue) {
 };
 
 
-function initChangeEditBox(selBoxValue) {
-    console.log("initChangeEditBox" + selBoxValue);
-    fillSelector('select#repair_post_id_edit', resources, 'title', selBoxValue);//Ремонтные посты
-    var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxValue);
-    fillSelector('select#repair_type_id_edit', type, 'name', 'more');
-};
-
 $(document).ready(function () {
     console.log("ready!");
 
     watchDog();
     setInterval('watchDog()', 10000);
+
+
     var startdatetime = $('#startdatetime').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
     var enddatetime = $('#enddatetime').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
-
-    var startdatetime_edit = $('#startdatetime_edit').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
-    var enddatetime_edit = $('#enddatetime_edit').datetimepicker({format: 'YYYY-MM-DD HH:mm', locale: 'ru'});
-    // user_target_name
     var $selectBox = $('#repair_box_id');
 
 
-    $selectBox.off('change').on('change', function (e) {
-        e.preventDefault();
-        initChangeBox($selectBox.val());
-    });
 
 
-    // user_target_name
-    var $selectEditBox = $('#repair_box_id_edit');
 
-    $selectEditBox.off('change').on('change', function (e) {
-        e.preventDefault();
-        initChangeEditBox($selectEditBox.val());
-    });
 
     init();
     resizeWorkspace();
@@ -84,45 +65,55 @@ $(document).ready(function () {
 
     //  $('#edit_event_button').click
     function editEvent(edit_event) {
+        $selectBox.off('change').on('change', function (e) {
+            e.preventDefault();
+            initChangeBox($selectBox.val());
+        });
         $("div.form-group").removeClass('has-error');
         $("div.form-group").removeClass('has-success');
         //Заполняем селекторы с боксами
         $('#editEventLabel').text("Редактировать событие # " + edit_event.id);
-        fillSelector('select#repair_box_id_edit', resources, 'title', 'more'); // ремонтные боксы
+        fillSelector('select#repair_box_id', resources, 'title', 'more'); // ремонтные боксы
         //console.log("Машина клиента: " + edit_event.customer_car_id);
-        $('select#repair_box_id_edit').val(edit_event.repair_box_id);
-        var selBoxVal = $('select#repair_box_id_edit').val(); //Берем текущее значение бокса
+        $('select#repair_box_id').val(edit_event.repair_box_id);
+        var selBoxVal = $('select#repair_box_id').val(); //Берем текущее значение бокса
 
-        fillSelector('select#repair_post_id_edit', resources, 'title', selBoxVal);//Ремонтные посты
+        fillSelector('select#repair_post_id', resources, 'title', selBoxVal);//Ремонтные посты
 
-        $('select#repair_post_id_edit').val(edit_event.repair_post_id);
+        $('select#repair_post_id').val(edit_event.repair_post_id);
 
         var type = getDataJson('connector.php?get=repairType', 'boxid=' + selBoxVal);   //Загружаем типы работ
-        fillSelector('select#repair_type_id_edit', type, 'name', 'more'); //заполняем Типы работ
+        fillSelector('select#repair_type_id', type, 'name', 'more'); //заполняем Типы работ
 
-        $('select#repair_type_id_edit').val(edit_event.repair_type_id);
+        $('select#repair_type_id').val(edit_event.repair_type_id);
 
-        fillSelector('select#user_target_name_edit', users, 'name', 'more'); //Заполняем механиков
-        $('select#user_target_name_edit').val(edit_event.user_target_id);
-        $('input#customer_name_edit').val(edit_event.customer_name);
-        $('input#customer_phone_edit').val(edit_event.customer_phone);
-        $('input#customer_car_vin_edit').val(edit_event.customer_car_vin);
-        $('input#customer_car_name_edit').val(edit_event.customer_car_name);
-        $('input#customer_car_gv_number_edit').val(edit_event.customer_car_gv_number);
-        $('input#customer_car_mileage_edit').val(edit_event.customer_car_mileage);
-        $('input#startdatetime_edit').val(edit_event.startdatetime);
-        $('input#enddatetime_edit').val(edit_event.enddatetime);
-        fillSelector('select#state_edit', state, 'name', 'more');//Заполняем статус события
-        $('select#state_edit').val(edit_event.state);
+        fillSelector('select#user_target_name', users, 'name', 'more'); //Заполняем механиков
+        $('select#user_target_name').val(edit_event.user_target_id);
+        $('input#customer_name').val(edit_event.customer_name);
+        $('input#customer_phone').val(edit_event.customer_phone);
+        $('input#customer_car_vin').val(edit_event.customer_car_vin);
+        $('input#customer_car_name').val(edit_event.customer_car_name);
+        $('input#customer_car_gv_number').val(edit_event.customer_car_gv_number);
+        $('input#customer_car_mileage').val(edit_event.customer_car_mileage);
+        $('input#startdatetime').val(edit_event.startdatetime);
+        $('input#enddatetime').val(edit_event.enddatetime);
+
+        fillSelector('select#state', state, 'name', 'more');//Заполняем статус события
+        $('select#state').val(edit_event.state);
         searchAutocomplete(searchElements);
 
         $('#editEvent').modal('show');
+
         //Фио клиента
 
 
     };
 
     $('#add_event_button').click(function () {
+        $selectBox.off('change').on('change', function (e) {
+            e.preventDefault();
+            initChangeBox($selectBox.val());
+        });
 
         $("#createEventForm")[0].reset();
         $("div.form-group").removeClass('has-error');
@@ -191,17 +182,18 @@ $(document).ready(function () {
 
         e.preventDefault();
 
-        var formData = $('#editEventForm').serializeArray();
+        var formEditData = $('#editEventForm').serializeArray();
 
         // check form
         var result = {};
-        formData.forEach(function (v) {
+        formEditData.forEach(function (v) {
             result[v.name] = v.value;
         });
 
-        var formAnswer = getDataJson('connector.php?get=updateEvent', result);
+        var formEditAnswer = getDataJson('connector.php?get=updateEvent', result);
+        console.log(formEditAnswer);
+        jQuery.each(formEditAnswer, function (i, val) {
 
-        jQuery.each(formAnswer, function (i, val) {
 
             if (val == false) {
                 $('.' + i).removeClass('has-success');

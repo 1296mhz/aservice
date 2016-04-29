@@ -335,43 +335,43 @@ class Controller
     //Хуинская обработка формы обновления события
     public static function updateHandlerEvent($user_id, $data)
     {
-
+        file_put_contents('test/update.log',serialize($data));
         // addEvent::insertEvent($request);
         $requestToCheck = $data;
         $requestToCheck['user_owner_id'] = $user_id;
 
         $data = Validate::checking($data);
-        if ($data['customer_name'] &&
-            $data['customer_phone'] &&
-            $data['customer_car_vin'] &&
-            $data['customer_car_gv_number'] &&
-            $data['customer_car_name'] &&
-            $data['customer_car_mileage'] &&
-            $data['repair_box_id'] &&
-            $data['repair_post_id'] &&
-            $data['repair_type_id'] &&
-            $data['user_target_name'] &&
-            $data['state'] &&
-            $data['startdatetime'] &&
-            $data['enddatetime']
+        if ($data['customer_name_edit'] &&
+            $data['customer_phone_edit'] &&
+            $data['customer_car_vin_edit'] &&
+            $data['customer_car_gv_number_edit'] &&
+            $data['customer_car_name_edit'] &&
+            $data['customer_car_mileage_edit'] &&
+            $data['repair_box_id_edit'] &&
+            $data['repair_post_id_edit'] &&
+            $data['repair_type_id_edit'] &&
+            $data['user_target_name_edit'] &&
+            $data['state_edit'] &&
+            $data['startdatetime_edit'] &&
+            $data['enddatetime_edit']
         ) {
 
             $customer_name_id = Check::switcherCheck(Check::checkCustomer($requestToCheck));
             $customerCar_name_id = Check::switcherCheck(Check::checkCustomerCar($requestToCheck));
             $dataSave[] = [];
-            $dataSave['repair_box_id_edit'] = $requestToCheck['repair_box_id'];
-            $dataSave['repair_post_id_edit'] = $requestToCheck['repair_post_id'];
-            $dataSave['repair_type_id_edit'] = $requestToCheck['repair_type_id'];
-            $dataSave['user_target_id_edit'] = $requestToCheck['user_target_name'];
+            $dataSave['repair_box_id_edit'] = $requestToCheck['repair_box_id_edit'];
+            $dataSave['repair_post_id_edit'] = $requestToCheck['repair_post_id_edit'];
+            $dataSave['repair_type_id_edit'] = $requestToCheck['repair_type_id_edit'];
+            $dataSave['user_target_id_edit'] = $requestToCheck['user_target_name_edit'];
             $dataSave['user_owner_id_edit'] = $requestToCheck['user_owner_id'];
-            $dataSave['state_edit'] = $requestToCheck['state'];
-            $dataSave['startdatetime_edit'] = $requestToCheck['startdatetime'];
-            $dataSave['enddatetime_edit'] = $requestToCheck['enddatetime'];
+            $dataSave['state_edit'] = $requestToCheck['state_edit'];
+            $dataSave['startdatetime_edit'] = $requestToCheck['startdatetime_edit'];
+            $dataSave['enddatetime_edit'] = $requestToCheck['enddatetime_edit'];
             $dataSave['customer_id_edit'] = $customer_name_id;
             $dataSave['customer_car_id_edit'] = $customerCar_name_id;
 
 
-            //Update::updateEvent($dataSave);
+            Update::updateEvent($dataSave);
             return $data;
         }
         return $data;

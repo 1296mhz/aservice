@@ -68,7 +68,6 @@
             </ul>
             <div class="nav navbar-nav navbar-right">
                 <button class="btn btn-success navbar-btn" id="add_event_button">Добавить событие</button>
-                <button class="btn btn-success navbar-btn" id="edit_event_button">Редактировать событие</button>
                 <button class="btn btn-success navbar-btn" id="reload">Обновить</button>
                 <button class="btn btn-danger navbar-btn btn-exit">Выйти</button>
             </div>
