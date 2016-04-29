@@ -359,19 +359,19 @@ class Controller
             $customer_name_id = Check::switcherCheck(Check::checkCustomer($requestToCheck));
             $customerCar_name_id = Check::switcherCheck(Check::checkCustomerCar($requestToCheck));
             $dataSave[] = [];
-            $dataSave['repair_box_id'] = $requestToCheck['repair_box_id'];
-            $dataSave['repair_post_id'] = $requestToCheck['repair_post_id'];
-            $dataSave['repair_type_id'] = $requestToCheck['repair_type_id'];
-            $dataSave['user_target_id'] = $requestToCheck['user_target_name'];
-            $dataSave['user_owner_id'] = $requestToCheck['user_owner_id'];
-            $dataSave['state'] = $requestToCheck['state'];
-            $dataSave['startdatetime'] = $requestToCheck['startdatetime'];
-            $dataSave['enddatetime'] = $requestToCheck['enddatetime'];
-            $dataSave['customer_id'] = $customer_name_id;
-            $dataSave['customer_car_id'] = $customerCar_name_id;
+            $dataSave['repair_box_id_edit'] = $requestToCheck['repair_box_id'];
+            $dataSave['repair_post_id_edit'] = $requestToCheck['repair_post_id'];
+            $dataSave['repair_type_id_edit'] = $requestToCheck['repair_type_id'];
+            $dataSave['user_target_id_edit'] = $requestToCheck['user_target_name'];
+            $dataSave['user_owner_id_edit'] = $requestToCheck['user_owner_id'];
+            $dataSave['state_edit'] = $requestToCheck['state'];
+            $dataSave['startdatetime_edit'] = $requestToCheck['startdatetime'];
+            $dataSave['enddatetime_edit'] = $requestToCheck['enddatetime'];
+            $dataSave['customer_id_edit'] = $customer_name_id;
+            $dataSave['customer_car_id_edit'] = $customerCar_name_id;
 
 
-            Update::updateEvent($dataSave);
+            //Update::updateEvent($dataSave);
             return $data;
         }
         return $data;
